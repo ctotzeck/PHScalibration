@@ -1,0 +1,8 @@
+#! /bin/bash
+
+python test_manifold_gradient_check.py
+python test_manifold_deterministic.py
+python test_manifold_deterministicX.py
+python test_manifold_deterministic_lam.py
+python test_manifold_stochastic.py
+python test_manifold_MSD.py
