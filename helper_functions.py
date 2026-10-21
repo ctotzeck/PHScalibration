@@ -136,7 +136,7 @@ def generate_symm(N,fix_seed=0):
     return S
 
 def test_symm(S):
-    flag = (np.sum(S-S.T) == 0)
+    flag = (np.allclose(S-S.T,0) == 0)
     # if flag:
     #      print('Symm OK!')
     # else:
@@ -425,10 +425,10 @@ def initialize_reference_data(N,M):
     JT = 10*generate_skew_symm(N)
 
     AR = -1 + 2*np.random.rand(N,N)
-    RT = np.dot(AR, AR.transpose())
-    #RT = 1./N*np.diag(range(1,N+1))
-    RT[:2,:2] = 0.0
-    #RT = remove_1_percent(RT)
+    L = np.triu(-1 + 2*np.random.rand(N,N))
+    L[0,0] = 0
+    L[1,1] = 0
+    RT = (L @ L.T)
     xT = np.ones([N,])
     return BT, QT, JT, RT, xT
 
@@ -548,8 +548,10 @@ def initialize_reference_data_lam(N,M):
     QT = np.diag(range(1,N+1))
     JT = generate_skew_symm(N)
     AR = -0.1 + 0.2*np.random.rand(N,N)
-    RT = np.dot(AR, AR.transpose())
-    RT[:2,:2] = 0.0 # semi-definite
+    L = np.triu(-1 + 2*np.random.rand(N,N))
+    L[0,0] = 0
+    L[1,1] = 0
+    RT = (L @ L.T)
     xT = np.zeros([N,])
     return BT, QT, JT, RT, xT
 
@@ -815,8 +817,10 @@ def initialize_reference_data_X(N,M):
     QT = np.diag(range(1,N+1))
     JT = generate_skew_symm(N)
     AR = -0.1 + 0.2*np.random.rand(N,N)
-    RT = np.dot(AR, AR.transpose())
-    RT[:2,:2] = 0.0 # semi-definite
+    L = np.triu(-1 + 2*np.random.rand(N,N))
+    L[0,0] = 0
+    L[1,1] = 0
+    RT = (L @ L.T)
     xT = 0.1*np.arange(N)
     return BT, QT, JT, RT, xT
 
@@ -1078,8 +1082,10 @@ def initialize_reference_data_sto(N,M):
     QT = np.diag(range(1,N+1))
     JT = generate_skew_symm(N)
     AR = -0.1 + 0.2*np.random.rand(N,N)
-    RT = np.dot(AR, AR.transpose())
-    RT[:2,:2] = 0.0 # semi-definite
+    L = np.triu(-1 + 2*np.random.rand(N,N))
+    L[0,0] = 0
+    L[1,1] = 0
+    RT = (L @ L.T)
     xT = np.zeros([N,])
     return BT, QT, JT, RT, xT
 
@@ -1345,8 +1351,10 @@ def initialize_reference_data_det(N,M):
     QT = np.diag(range(1,N+1))
     JT = generate_skew_symm(N)
     AR = -0.1 + 0.2*np.random.rand(N,N)
-    RT = np.dot(AR, AR.transpose())
-    RT[:2,:2] = 0.0 # semi-definite
+    L = np.triu(-1 + 2*np.random.rand(N,N))
+    L[0,0] = 0
+    L[1,1] = 0
+    RT = (L @ L.T)
     xT = np.zeros([N,])
     return BT, QT, JT, RT, xT
 
