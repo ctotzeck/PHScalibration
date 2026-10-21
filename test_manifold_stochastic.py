@@ -59,7 +59,7 @@ for noi in noise_vals:
         pn = solve_backward(J,R,Q,B,yn,ydata,sol_x,T,dt,steps)
         Grad_B, Grad_Q, Grad_J, Grad_R, Grad_x = compute_gradient(xn,yn,pn,Q,B,J,R,u,ydata,steps,dt,lam)
         n1 = compute_norm(Grad_B, Grad_Q, Grad_J, Grad_R, Grad_x)
-        norm_old = copy.deepcopy(n1)
+        
 
         if i == 0:
             # first step is gradient step
@@ -69,6 +69,7 @@ for noi in noise_vals:
             dir_J, dir_R, dir_Q, dir_B, dir_x = CG_direction(Grad_J, Grad_R, Grad_Q, Grad_B, Grad_x, XI_B, XI_Q, XI_J,
                                                              XI_R, XI_x, n1, norm_old, i, N)
 
+        norm_old = copy.deepcopy(n1)
         dir_Q, dir_R, dir_J = check_matrix_properties(dir_Q, dir_R, dir_J)
         JA, RA, QA, BA, x0A, xA, yA, fail, cA = armijo_rule_sto(xn, yn, J, R, Q, B, x0, dir_J, dir_R, dir_Q, dir_B, dir_x, ydata, u, sig, gamma, fail_flag, eps, alternative, dt, steps, N, lam)
 
